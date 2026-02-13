@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>My Valentine 💖</title>
+
   <style>
     body {
       margin: 0;
@@ -48,7 +49,7 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 15px;
-      max-width: 800px;
+      max-width: 900px;
       margin: auto;
     }
 
@@ -56,13 +57,18 @@
       width: 100%;
       border-radius: 20px;
       box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .grid img:hover {
+      transform: scale(1.05);
     }
 
     .love {
       position: fixed;
       top: -10px;
       font-size: 24px;
-      animation: fall 5s linear infinite;
+      animation: fall linear infinite;
     }
 
     @keyframes fall {
@@ -72,6 +78,7 @@
     }
   </style>
 </head>
+
 <body>
 
 <h1 id="question">Will you be my Valentine? 💕</h1>
@@ -91,6 +98,11 @@
     <img src="foto6.jpeg">
   </div>
 </div>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+  <source src="lagu.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 const noBtn = document.getElementById("noBtn");
@@ -118,11 +130,21 @@ noBtn.addEventListener("touchstart", (e) => {
 });
 
 function startLove() {
+
+  // Play music
+  const music = document.getElementById("bgMusic");
+  music.volume = 0.5;
+  music.play();
+
+  // Hide question & buttons
   document.getElementById("question").style.display = "none";
   document.querySelector(".yes").style.display = "none";
   document.querySelector(".no").style.display = "none";
+
+  // Show gallery
   document.getElementById("gallery").style.display = "block";
 
+  // Create falling hearts
   for (let i = 0; i < 40; i++) {
     let heart = document.createElement("div");
     heart.innerHTML = "💖";
