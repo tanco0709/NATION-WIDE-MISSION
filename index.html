@@ -1,35 +1,136 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Valentine 💖</title>
+  <title>My Valentine 💖</title>
   <style>
     body {
+      margin: 0;
+      font-family: Arial, sans-serif;
       text-align: center;
-      font-family: Arial;
-      background: pink;
+      background: linear-gradient(to bottom right, #ff9a9e, #fad0c4);
+      overflow-x: hidden;
     }
-    img {
-      margin-top: 20px;
-      width: 300px;
+
+    h1 {
+      margin-top: 100px;
+      font-size: 40px;
+      color: white;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      margin: 15px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .yes {
+      background: white;
+      color: hotpink;
+    }
+
+    .no {
+      background: #ff4d6d;
+      color: white;
+      position: absolute;
+    }
+
+    #gallery {
       display: none;
+      margin-top: 40px;
+      padding: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .grid img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .love {
+      position: fixed;
+      top: -10px;
+      font-size: 24px;
+      animation: fall 5s linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+      }
     }
   </style>
 </head>
 <body>
 
-<h1>Will you be my Valentine? 💕</h1>
+<h1 id="question">Will you be my Valentine? 💕</h1>
 
-<button onclick="showLove()">Yes</button>
-<button id="no">No</button>
+<button class="yes" onclick="startLove()">Yes 💖</button>
+<button class="no" id="noBtn">No 😜</button>
 
-<br>
+<div id="gallery">
+  <h1>Officially My Valentine 💍✨</h1>
 
-<img id="foto" src="foto.jpg">
+  <div class="grid">
+    <img src="foto1.jpeg">
+    <img src="foto2.jpeg">
+    <img src="foto3.jpeg">
+    <img src="foto4.jpeg">
+    <img src="foto5.jpeg">
+    <img src="foto6.jpeg">
+  </div>
+</div>
 
 <script>
-function showLove() {
-  document.getElementById("foto").style.display = "block";
-  alert("YAYYY 💖 I LOVE YOUU");
+const noBtn = document.getElementById("noBtn");
+
+function moveButton() {
+  const padding = 100;
+  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
+
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  moveButton();
+});
+noBtn.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  moveButton();
+});
+
+function startLove() {
+  document.getElementById("question").style.display = "none";
+  document.querySelector(".yes").style.display = "none";
+  document.querySelector(".no").style.display = "none";
+  document.getElementById("gallery").style.display = "block";
+
+  for (let i = 0; i < 40; i++) {
+    let heart = document.createElement("div");
+    heart.innerHTML = "💖";
+    heart.classList.add("love");
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    document.body.appendChild(heart);
+  }
 }
 </script>
 
